@@ -42,7 +42,7 @@ def main():
     target = args.target.strip("/")
 
     # Read wordlist file into list
-    wordlist = get_wordlist(args.wordlistwordlist, filters)
+    wordlist = get_wordlist(args.wordlistwordlist)
 
     # What we're looking for (and not)
     filters = [ext.strip(".") for ext in args.filters.split(",")]
