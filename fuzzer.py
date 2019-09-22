@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 import argparse
-import os
 import queue
 import threading
+from urllib.parse import urljoin
 import requests
 
 
@@ -18,7 +18,8 @@ def get_wordlist(wordlist, filters=None):
     return paths
 
 
-def test_remote(url_queue, fail_codes=None, success_codes=None):
+# Test if resource exists at target
+def fuzz_target(url_queue, fail_codes=None, success_codes=None):
 
     while not url_queue.empty():
         url = url_queue.get()
@@ -51,13 +52,14 @@ def main():
     # Format URLs to form queue
     url_queue = queue.Queue()
     for word in wordlist:
-        url_queue.put(f"{target}{path}")
+        url = urljoin(target, word)
+        url_queue.put(url)
 
     # Spawn threads
     print("Spawning %d threads..." % args.threads)
     for i in range(args.threads):
         t = threading.Thread(
-            target=test_remote,
+            target=fuzz_target,
             args=(url_queue, fail_codes, success_codes)
         )
         t.start()
