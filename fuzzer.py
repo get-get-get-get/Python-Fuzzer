@@ -19,7 +19,7 @@ def get_wordlist(wordlist, filters=None):
 
 
 # Test if resource exists at target
-def fuzz_target(url_queue, fail_codes=None, success_codes=None):
+def fuzz_target(url_queue, headers=None, fail_codes=None, success_codes=None):
 
     while not url_queue.empty():
         url = url_queue.get()
@@ -55,12 +55,16 @@ def main():
         url = urljoin(target, word)
         url_queue.put(url)
 
+    # Requests headers
+    headers = {
+        "user-agent": args.agent,
+    }
     # Spawn threads
     print("Spawning %d threads..." % args.threads)
     for i in range(args.threads):
         t = threading.Thread(
             target=fuzz_target,
-            args=(url_queue, fail_codes, success_codes)
+            args=(url_queue, headers, fail_codes, success_codes)
         )
         t.start()
 
@@ -104,6 +108,12 @@ if __name__ == '__main__':
         type=int,
         default=10,
         help="Request threads"
+    )
+    parser.add_argument(
+        "-a",
+        "--agent",
+        default="Mozilla/5.0",
+        help="User-agent"
     )
     args = parser.parse_args()
 
