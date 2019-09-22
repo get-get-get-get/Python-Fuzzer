@@ -25,7 +25,7 @@ def fuzz_target(url_queue, headers=None, fail_codes=None, success_codes=None):
         url = url_queue.get()
 
         # Test if resource exists
-        r = requests.get(url)
+        r = requests.get(url, headers=headers)
         code = r.status_code
         if code in fail_codes:
             continue
