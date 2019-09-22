@@ -59,6 +59,7 @@ def main():
     headers = {
         "user-agent": args.agent,
     }
+    
     # Spawn threads
     print("Spawning %d threads..." % args.threads)
     for i in range(args.threads):
