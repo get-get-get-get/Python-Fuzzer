@@ -92,13 +92,11 @@ if __name__ == '__main__':
         help="Extensions to exclude as comma-separated list"
     )
     parser.add_argument(
-        "-cB",
         "--blacklist",
         default="404",
         help="Status codes indicating failure, as comma-separated list"
     )
     parser.add_argument(
-        "-cW",
         "--whitelist",
         default="200,301,302,401,403",
         help="Status codes indicating success, as comma-separated list"
