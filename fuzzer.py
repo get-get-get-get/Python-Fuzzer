@@ -34,7 +34,7 @@ def fuzz_target(url_queue, headers=None, fail_codes=None, success_codes=None):
                 continue
 
         # Resource exists
-        print(f"[{code}] => {url}")
+        print(f"{url} => [{code}]")
 
 
 def main():
