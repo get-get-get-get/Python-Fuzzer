@@ -7,7 +7,7 @@ import requests
 
 
 # Walk local directory to create paths, returns list
-def get_wordlist(wordlist, filters=None):
+def get_wordlist(wordlist):
 
     paths = []
 
@@ -45,7 +45,6 @@ def main():
     wordlist = get_wordlist(args.wordlist)
 
     # What we're looking for (and not)
-    filters = [ext.strip(".") for ext in args.filters.split(",")]
     fail_codes = [int(code) for code in args.blacklist.split(",")]
     success_codes = [int(code) for code in args.whitelist.split(",")]
 
@@ -84,12 +83,6 @@ if __name__ == '__main__':
         "--wordlist",
         required=True,
         help="Path to wordlist"
-    )
-    parser.add_argument(
-        "-f",
-        "--filters",
-        default="jpg,gif,png,css",
-        help="Extensions to exclude as comma-separated list"
     )
     parser.add_argument(
         "--blacklist",
